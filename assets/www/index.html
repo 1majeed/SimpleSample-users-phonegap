@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>Capture Photo</title>
+    <title>Device Properties Example</title>
 
     <script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
-    <script type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for Cordova to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // Cordova is ready
+    //
+    function onDeviceReady() {
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }
+
+    // onSuccess Geolocation
+    //
+    function onSuccess(position) {
+        var element = document.getElementById('geolocation');
+        element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
+                            'Longitude: '          + position.coords.longitude             + '<br />' +
+                            'Altitude: '           + position.coords.altitude              + '<br />' +
+                            'Accuracy: '           + position.coords.accuracy              + '<br />' +
+                            'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+                            'Heading: '            + position.coords.heading               + '<br />' +
+                            'Speed: '              + position.coords.speed                 + '<br />' +
+                            'Timestamp: '          +                                   position.timestamp          + '<br />';
+    }
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+                'message: ' + error.message + '\n');
+    }
+
+    </script>
   </head>
-  <body bgcolor="#E0F8F7">
-  
-  
-  
-   <img src="http://dl.dropbox.com/u/14487552/tryPHP/logo.png" alt="logo" height="42" width="42"> 
-  
-  
- <p align="center">الرئاسة العامة لهيئة الأمر بالمعروف والنهي عن المنكر  
-</p> 
-  
-  
-  <br>
-  <br>
-  <center>
-    <button text-align:center onclick=window.location="page2.html">أرسل بلاغاً</button> <br>
-    <button text-align:center onclick=window.location="page2.html">أقرب هيئة</button> <br>
-    <button text-align:center onclick=window.location="page2.html">الهاتف الموحد</button> <br>
-</center>
-
-
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
+  <body>
+    <p id="geolocation">Finding geolocation...</p>
   </body>
 </html>
